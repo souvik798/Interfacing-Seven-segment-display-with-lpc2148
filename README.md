@@ -1,13 +1,9 @@
-# Interfacing-Seven-segment-display-with-lpc2148
+# EX NO.8 Interfacing-Seven-segment-display-with-lpc2148
 
-Name:	
-Roll no 
-Date of experiment:
+Name: SOUVIK KUNDU
 
+Roll no : 212221230105
 
-
-Ex. No. :
-Date: 
  
 
 ### Aim: To configure and display 4 character LED seven segment display and write a c code for displaying number 1 to 9 and A to F 
@@ -51,14 +47,52 @@ Sl no 	Hex code 	Output of LCD
 ![image](https://user-images.githubusercontent.com/36288975/201021930-7efe2b15-b0de-4d52-b87d-329fe6b91c89.png)
         Figure -3 Circuit diagram of interfacing for LPX4 - CA
 
-## Kiel - Program 
+## Kiel - Program :
+```
+#include <LPC214x.h>
+unsigned char dig[]={0x88,0xeb,0x4c,0x49,0x2b,0x19,0x18,0xcb,0x8,0x9,0xa,0x38,0x9c,0x68};
+	void delay(unsigned int count)
+	{
+		int j=0,i=0;
+		for(j=0;j<count;j++)
+		{
+			for(i=0;i<120;i++);
+		}
+	}
+	int main(void)
+	{
+		unsigned char count=0;
+		unsigned int i=0;
+		IO0DIR|=(1<<11);//Set Digit control lines as Outputs
+		IO0SET=(1<<11);
+		IO0DIR|=0x007F8000;
+		while(1)
+		{
+			count++;
+			if(count==16)count=0;
+			for(i=0;i<800;i++)//change to inc/dec speed of count
+			{
+				IO0CLR=0x007F8000;
+				IO0SET=(dig[count]<<15);
+				delay(200);
+			}
+		}
+	}
 
+```
 
+ ##  Output screen shots :
+ Before Simulation:
+ ![OUTPUT](1.png)
 
- 
+ After Simulation:
+![OUTPUT](2.png)
+![OUTPUT](3.png)
 
+Circuit Layout Diagram:
+![OUTPUT](4.png)
 
 ### Result :
 LED seven segment display is interfaced and displayed alpha numeric characters 
 
-##  Output screen shots :
+
